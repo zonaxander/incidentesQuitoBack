@@ -12,27 +12,27 @@ export class Personas {
   nombres: string;
   @Prop({required:true})
   apellidos: string;
-  @Prop()
+  @Prop({default:null})
   nacionalidad: number;  
-  @Prop()
+  @Prop({default:null})
   direccion: string;
   @Prop({required:true})
   correo: string;
-  @Prop()
+  @Prop({default:null})
   telefono: number;
   @Prop({required:true})
   password: string;
   @Prop({default:0})
   strikes: number;
-  @Prop()
+  @Prop({default:false})
   bloqueo: string;
-  @Prop()
+  @Prop({default:null})
   fotoPerfil: string;
-  @Prop()
+  @Prop({default:null})
   fotoCedula: string;
   @Prop({default:new Date()})
   fechaCreacion:Date;
-  @Prop()
+  @Prop({default:null})
   fechaEdicion:Date;
 }
 
