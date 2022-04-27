@@ -23,7 +23,7 @@ export class IncidentesService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} incidente`;
+    return  this.incidentesModule.findById(id).exec();
   }
 
   update(id: number, updateIncidenteDto: UpdateIncidenteDto) {

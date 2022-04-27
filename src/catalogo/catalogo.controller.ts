@@ -20,8 +20,8 @@ export class CatalogoController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.catalogoService.findOne(+id);
+  findOne(@Param('id') id: number) {
+    return this.catalogoService.findOne(id);
   }
 
   @Patch(':id')

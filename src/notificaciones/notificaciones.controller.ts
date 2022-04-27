@@ -20,8 +20,8 @@ export class NotificacionesController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.notificacionesService.findOne(+id);
+  findOne(@Param('id') id: number) {
+    return this.notificacionesService.findOne(id);
   }
 
   @Patch(':id')

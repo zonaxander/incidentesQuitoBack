@@ -20,8 +20,8 @@ export class IncidentesController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.incidentesService.findOne(+id);
+  findOne(@Param('id') id: number) {
+    return this.incidentesService.findOne(id);
   }
 
   @Patch(':id')

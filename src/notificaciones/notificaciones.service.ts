@@ -23,7 +23,7 @@ export class NotificacionesService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} notificacione`;
+    return  this.notificacionesModule.findById(id).exec();
   }
 
   update(id: number, updateNotificacioneDto: UpdateNotificacioneDto) {

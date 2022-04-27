@@ -21,7 +21,7 @@ export class CatalogoService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} catalogo`;
+    return  this.catalogoModule.findById(id).exec();
   }
 
   update(id: number, updateCatalogoDto: UpdateCatalogoDto) {
