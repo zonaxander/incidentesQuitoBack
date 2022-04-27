@@ -21,7 +21,7 @@ export class PersonasService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} persona`;
+    return  this.personasModule.findById(id).exec();
   }
 
   update(id: number, updatePersonaDto: UpdatePersonaDto) {

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFile } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFile, HttpException, HttpStatus } from '@nestjs/common';
 import { PersonasService } from './personas.service';
 import { CreatePersonaDto } from './dto/create-persona.dto';
 import { UpdatePersonaDto } from './dto/update-persona.dto';
@@ -12,10 +12,17 @@ export class PersonasController {
 
   @Post()
   @UseInterceptors(FileInterceptor('file'))
-  create(@Body() createPersonaDto: CreatePersonaDto, @UploadedFile() file: Express.Multer.File) {
-    //const fileB64 = file.buffer.toString('base64')
-    //createPersonaDto.fotoPerfil=fileB64
-    return this.personasService.create(createPersonaDto);
+  async create(@Body() createPersonaDto: CreatePersonaDto, @UploadedFile() file: Express.Multer.File) {
+    if(file){
+      const fileB64 = file.buffer.toString('base64')
+      createPersonaDto.fotoCedula=fileB64
+      return await this.personasService.create(createPersonaDto).catch(err => {
+        this.errorCatch(err)
+      })
+    }else{
+      throw new HttpException('Error en la fotografia', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
   }
 
   @Get()
@@ -24,8 +31,8 @@ export class PersonasController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.personasService.findOne(+id);
+  findOne(@Param('id') id: number) {
+    return this.personasService.findOne(id);
   }
 
   @Patch(':id')
@@ -36,5 +43,14 @@ export class PersonasController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.personasService.remove(+id);
+  }
+
+  errorCatch(err){
+    throw new HttpException({
+      return: {
+        'code':err.code,
+        'message':err.message
+      }
+    }, HttpStatus.BAD_REQUEST);
   }
 }
