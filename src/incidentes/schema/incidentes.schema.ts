@@ -1,6 +1,8 @@
-
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Type } from 'class-transformer';
+import { Types,Document } from 'mongoose';
+import * as mongoose from 'mongoose';
+import { Personas } from 'src/personas/schema/personas.schema';
 
 export type IncidentesDocument = Incidentes & Document;
 
@@ -20,10 +22,11 @@ export class Incidentes {
   fotoUno: string;
   @Prop({default:null})
   fotoDos: string;
-  @Prop({required:true})
-  idPersona: number;
+  @Prop({ required:true,type: mongoose.Schema.Types.ObjectId, ref: Personas.name })
+  @Type(() => Personas)
+  persona: Types.ObjectId;
   @Prop({default:null})
-  idAgente: number;
+  idAgente: string;
   @Prop({default:new Date()})
   fechaCreacion:Date;
   @Prop({default:null})

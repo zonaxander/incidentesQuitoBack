@@ -9,8 +9,8 @@ export class CreateNotificacioneDto {
     descripcion: string;
 
     @IsNotEmpty()
-    tipo:number;
+    tipo:string;
 
     @IsNotEmpty()
-    idPersona:number;
+    persona:string;
 }

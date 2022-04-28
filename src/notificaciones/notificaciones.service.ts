@@ -23,7 +23,11 @@ export class NotificacionesService {
   }
 
   findOne(id: number) {
-    return  this.notificacionesModule.findById(id).exec();
+    return this.notificacionesModule.findById(id).populate('tipo').populate('persona');
+  }
+
+  findByIdPersona(idPersona: number) {
+    return this.notificacionesModule.findById(idPersona).populate('tipo');
   }
 
   update(id: number, updateNotificacioneDto: UpdateNotificacioneDto) {

@@ -24,6 +24,11 @@ export class NotificacionesController {
     return this.notificacionesService.findOne(id);
   }
 
+  @Get('findByIdPersona/:id')
+  findByIdPersona(@Param('idPersona') idPersona: number) {
+    return this.notificacionesService.findByIdPersona(idPersona);
+  }
+
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateNotificacioneDto: UpdateNotificacioneDto) {
     return this.notificacionesService.update(+id, updateNotificacioneDto);

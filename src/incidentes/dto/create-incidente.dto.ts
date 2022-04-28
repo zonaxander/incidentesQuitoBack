@@ -12,6 +12,6 @@ export class CreateIncidenteDto {
     longitud: number;
 
     @IsNotEmpty()
-    idPersona: number;
+    persona: string;
 
 }
