@@ -9,7 +9,10 @@ export class CreatePersonaDto {
   
     @IsNotEmpty()
     apellidos: string;
-    nacionalidad: number;  
+
+    @IsNotEmpty()
+    nacionalidad: string; 
+
     direccion: string;
 
     @IsNotEmpty()

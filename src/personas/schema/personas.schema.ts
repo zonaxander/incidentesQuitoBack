@@ -1,6 +1,9 @@
 
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Type } from 'class-transformer';
+import { Types,Document } from 'mongoose';
+import * as mongoose from 'mongoose';
+import { Catalogo} from 'src/catalogo/schema/catalogo.schema';
 
 export type PersonasDocument = Personas & Document;
 
@@ -12,8 +15,9 @@ export class Personas {
   nombres: string;
   @Prop({required:true})
   apellidos: string;
-  @Prop({default:null})
-  nacionalidad: number;  
+  @Prop({ required:true,type: mongoose.Schema.Types.ObjectId, ref: Catalogo.name })
+  @Type(() => Catalogo)
+  nacionalidad: Types.ObjectId;
   @Prop({default:null})
   direccion: string;
   @Prop({required:true})

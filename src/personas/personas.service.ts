@@ -21,7 +21,7 @@ export class PersonasService {
   }
 
   findOne(id: number) {
-    return  this.personasModule.findById(id).exec();
+    return this.personasModule.findById(id).populate('nacionalidad');
   }
 
   update(id: number, updatePersonaDto: UpdatePersonaDto) {
