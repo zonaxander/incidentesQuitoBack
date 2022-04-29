@@ -25,7 +25,7 @@ export class NotificacionesController {
   }
 
   @Get('findByIdPersona/:id')
-  findByIdPersona(@Param('idPersona') idPersona: number) {
+  findByIdPersona(@Param('id') idPersona: number) {
     return this.notificacionesService.findByIdPersona(idPersona);
   }
 

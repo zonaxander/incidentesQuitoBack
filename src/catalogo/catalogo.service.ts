@@ -24,6 +24,10 @@ export class CatalogoService {
     return  this.catalogoModule.findById(id).exec();
   }
 
+  findName(name: string) {
+    return this.catalogoModule.find({ nombre: name }).exec();
+  }
+
   update(id: number, updateCatalogoDto: UpdateCatalogoDto) {
     return `This action updates a #${id} catalogo`;
   }

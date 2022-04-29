@@ -24,6 +24,11 @@ export class CatalogoController {
     return this.catalogoService.findOne(id);
   }
 
+  @Get('findByName/:name')
+  findName(@Param('name') name: string) {
+    return this.catalogoService.findName(name);
+  }
+
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateCatalogoDto: UpdateCatalogoDto) {
     return this.catalogoService.update(+id, updateCatalogoDto);

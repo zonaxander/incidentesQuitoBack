@@ -27,7 +27,7 @@ export class NotificacionesService {
   }
 
   findByIdPersona(idPersona: number) {
-    return this.notificacionesModule.findById(idPersona).populate('tipo');
+    return this.notificacionesModule.find({ persona: idPersona }).populate('tipo').exec();
   }
 
   update(id: number, updateNotificacioneDto: UpdateNotificacioneDto) {
