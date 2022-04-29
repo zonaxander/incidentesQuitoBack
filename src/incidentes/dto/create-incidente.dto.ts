@@ -14,4 +14,7 @@ export class CreateIncidenteDto {
     @IsNotEmpty()
     persona: string;
 
+    fotoUno: string;
+    fotoDos: string;
+
 }

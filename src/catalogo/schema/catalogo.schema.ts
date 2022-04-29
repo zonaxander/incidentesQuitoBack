@@ -6,7 +6,7 @@ export type CatalogoDocument = Catalogo & Document;
 
 @Schema()
 export class Catalogo {
-  @Prop({required:true})
+  @Prop({required:true, unique:true})
   nombre: string;
   @Prop({required:true})
   valor: string;

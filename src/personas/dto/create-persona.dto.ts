@@ -1,4 +1,4 @@
-import { IsNotEmpty, Max } from "class-validator";
+import { IsEmail, IsNotEmpty, Max } from "class-validator";
 
 export class CreatePersonaDto {
     @IsNotEmpty()
@@ -16,6 +16,7 @@ export class CreatePersonaDto {
     direccion: string;
 
     @IsNotEmpty()
+    @IsEmail()
     correo: string;
     telefono: number;
 
