@@ -4,13 +4,11 @@ export class CreateNotificacioneDto {
 
     @IsNotEmpty()
     titulo: string;
-
     @IsNotEmpty()
     descripcion: string;
-
     @IsNotEmpty()
     tipo:string;
-
     @IsNotEmpty()
     persona:string;
+    estado:string;
 }

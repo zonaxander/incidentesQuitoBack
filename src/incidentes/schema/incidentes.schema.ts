@@ -31,6 +31,8 @@ export class Incidentes {
   fechaCreacion:Date;
   @Prop({default:null})
   fechaEdicion:Date;
+  @Prop({default:"GEN"})
+  estado:string;
 }
 
 export const IncidentesSchema = SchemaFactory.createForClass(Incidentes);

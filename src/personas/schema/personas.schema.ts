@@ -38,6 +38,8 @@ export class Personas {
   fechaCreacion:Date;
   @Prop({default:null})
   fechaEdicion:Date;
+  @Prop({default:"ACT"})
+  estado:string;
 }
 
 export const PersonasSchema = SchemaFactory.createForClass(Personas);

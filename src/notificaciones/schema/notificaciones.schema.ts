@@ -26,6 +26,8 @@ export class Notificaciones {
   fechaCreacion:Date;
   @Prop({default:null})
   fechaEdicion:Date;
+  @Prop({default:"ACT"})
+  estado:string;
 }
 
 export const NotificacionesSchema = SchemaFactory.createForClass(Notificaciones);

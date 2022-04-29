@@ -14,6 +14,8 @@ export class Catalogo {
   fechaCreacion:Date;
   @Prop({default:null})
   fechaEdicion:Date;
+  @Prop({default:"ACT"})
+  estado:string;
 }
 
 export const CatalogoSchema = SchemaFactory.createForClass(Catalogo);
