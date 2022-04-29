@@ -4,6 +4,7 @@ import { CreateIncidenteDto } from './dto/create-incidente.dto';
 import { UpdateIncidenteDto } from './dto/update-incidente.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
+var ObjectID = require('mongodb').ObjectID;
 
 @ApiTags('incidentes')
 @Controller('incidentes')
@@ -39,9 +40,9 @@ export class IncidentesController {
     return this.incidentesService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateIncidenteDto: UpdateIncidenteDto) {
-    return this.incidentesService.update(+id, updateIncidenteDto);
+  @Get('updateEstadoById/:id/:estado')
+  update(@Param('id') id: number,@Param('estado') estado: string) {
+    return this.incidentesService.updateEstadoById(ObjectID(id), estado);
   }
 
   @Delete(':id')

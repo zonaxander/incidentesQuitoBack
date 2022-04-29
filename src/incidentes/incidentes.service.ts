@@ -3,8 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { CreateIncidenteDto } from './dto/create-incidente.dto';
 import { UpdateIncidenteDto } from './dto/update-incidente.dto';
 import { Incidentes, IncidentesDocument } from './schema/incidentes.schema';
-import {Model} from 'mongoose';
-
+import { Types,Model } from 'mongoose';
 @Injectable()
 export class IncidentesService {
 
@@ -26,8 +25,9 @@ export class IncidentesService {
     return this.incidentesModule.findById(id).populate('persona');
   }
 
-  update(id: number, updateIncidenteDto: UpdateIncidenteDto) {
-    return `This action updates a #${id} incidente`;
+  updateEstadoById(id: Types.ObjectId, estado) {
+    const incidenteUpdated= this.incidentesModule.updateOne({"_id":id},{$set: {"estado": estado,"fechaEdicion": new Date()}})
+    return incidenteUpdated;
   }
 
   remove(id: number) {
