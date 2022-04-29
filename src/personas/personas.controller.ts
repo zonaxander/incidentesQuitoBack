@@ -4,6 +4,7 @@ import { CreatePersonaDto } from './dto/create-persona.dto';
 import { UpdatePersonaDto } from './dto/update-persona.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
+var ObjectID = require('mongodb').ObjectID;
 
 @ApiTags('personas')
 @Controller('personas')
@@ -36,8 +37,32 @@ export class PersonasController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePersonaDto: UpdatePersonaDto) {
-    return this.personasService.update(+id, updatePersonaDto);
+  update(@Param('id') id: number, @Body() updatePersonaDto: UpdatePersonaDto) {
+    updatePersonaDto.fechaEdicion = new Date();
+    return this.personasService.update(ObjectID(id), updatePersonaDto);
+  }
+
+  @Post('updateFotoPerfil/:id/:tipo')
+  @UseInterceptors(FileInterceptor('file'))
+  updateFotoPerfil(@Param('id') id: number,@Param('tipo') tipo: string,@Body() updatePersonaDto: UpdatePersonaDto, @UploadedFile() file: Express.Multer.File) {
+    if(file){
+      if(tipo=="cedula"){
+        updatePersonaDto.fotoCedula  = file.buffer.toString('base64');
+      }else{
+        updatePersonaDto.fotoPerfil  = file.buffer.toString('base64');
+      }
+      updatePersonaDto.fechaEdicion = new Date();
+      return this.personasService.updateFotoPerfil(ObjectID(id), updatePersonaDto);
+    }else{
+      throw new HttpException('Error en la fotografia', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  
+  @Patch('updatePassword/:id')
+  updatePassword(@Param('id') id: number, @Body() updatePersonaDto) {
+    updatePersonaDto.fechaEdicion = new Date();
+    return this.personasService.updatePassword(ObjectID(id), updatePersonaDto);
   }
 
   @Delete(':id')

@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { CreatePersonaDto } from './dto/create-persona.dto';
 import { UpdatePersonaDto } from './dto/update-persona.dto';
 import { Personas, PersonasDocument } from './schema/personas.schema';
-import {Model} from 'mongoose';
+import { Types,Model } from 'mongoose';
 
 @Injectable()
 export class PersonasService {
@@ -24,9 +24,21 @@ export class PersonasService {
     return this.personasModule.findById(id).populate('nacionalidad');
   }
 
-  update(id: number, updatePersonaDto: UpdatePersonaDto) {
-    return `This action updates a #${id} persona`;
+  update(id: Types.ObjectId, updatePersonaDto: UpdatePersonaDto) {
+    const personaUpdated= this.personasModule.updateOne({"_id":id},{$set: updatePersonaDto})
+    return personaUpdated;
   }
+
+  updateFotoPerfil(id: Types.ObjectId, updatePersonaDto: UpdatePersonaDto) {
+    const personaUpdated= this.personasModule.updateOne({"_id":id},{$set:updatePersonaDto})
+    return personaUpdated;
+  }
+
+  updatePassword(id: Types.ObjectId, updatePersonaDto:UpdatePersonaDto) {
+    const personaUpdated= this.personasModule.findByIdAndUpdate({"_id":id,"password":updatePersonaDto.passwordOld},{$set:updatePersonaDto})
+    return personaUpdated;
+  }
+
 
   remove(id: number) {
     return `This action removes a #${id} persona`;
