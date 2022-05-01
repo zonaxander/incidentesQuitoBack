@@ -3,7 +3,7 @@ import { NotificacionesService } from './notificaciones.service';
 import { CreateNotificacioneDto } from './dto/create-notificacione.dto';
 import { UpdateNotificacioneDto } from './dto/update-notificacione.dto';
 import { ApiTags } from '@nestjs/swagger';
-
+var ObjectID = require('mongodb').ObjectID;
 @ApiTags('notificaciones')
 @Controller('notificaciones')
 export class NotificacionesController {
@@ -32,6 +32,11 @@ export class NotificacionesController {
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateNotificacioneDto: UpdateNotificacioneDto) {
     return this.notificacionesService.update(+id, updateNotificacioneDto);
+  }
+
+  @Get('updateNotificacionRead/:id/:leido')
+  updateNotificacionRead(@Param('id') id: number, @Param('leido') leido: boolean) {
+    return this.notificacionesService.updateNotificacionRead(ObjectID(id),leido);
   }
 
   @Delete(':id')

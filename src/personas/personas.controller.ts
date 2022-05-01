@@ -61,7 +61,6 @@ export class PersonasController {
   
   @Patch('updatePassword/:id')
   updatePassword(@Param('id') id: number, @Body() updatePersonaDto) {
-    updatePersonaDto.fechaEdicion = new Date();
     return this.personasService.updatePassword(ObjectID(id), updatePersonaDto);
   }
 

@@ -25,7 +25,7 @@ export class CatalogoService {
   }
 
   findName(name: string) {
-    return this.catalogoModule.find({ nombre: name }).exec();
+    return this.catalogoModule.find({ nombre: name, estado:'ACT' }).exec();
   }
 
   update(id: number, updateCatalogoDto: UpdateCatalogoDto) {

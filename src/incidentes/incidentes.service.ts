@@ -25,6 +25,10 @@ export class IncidentesService {
     return this.incidentesModule.findById(id).populate('persona');
   }
 
+  findByIdPersona(idPersona: number) {
+    return this.incidentesModule.find({persona:idPersona}).exec();
+  }
+
   updateEstadoById(id: Types.ObjectId, estado) {
     const incidenteUpdated= this.incidentesModule.updateOne({"_id":id},{$set: {"estado": estado,"fechaEdicion": new Date()}})
     return incidenteUpdated;

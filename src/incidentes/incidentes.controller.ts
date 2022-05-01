@@ -40,6 +40,11 @@ export class IncidentesController {
     return this.incidentesService.findOne(id);
   }
 
+  @Get('findByIdPersona/:idPersona')
+  findByIdPersona(@Param('idPersona') idPersona: number) {
+    return this.incidentesService.findByIdPersona(idPersona);
+  }
+
   @Get('updateEstadoById/:id/:estado')
   update(@Param('id') id: number,@Param('estado') estado: string) {
     return this.incidentesService.updateEstadoById(ObjectID(id), estado);

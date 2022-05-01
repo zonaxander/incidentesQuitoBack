@@ -38,6 +38,7 @@ export class PersonasService {
   const persona = await this.personasModule.findById(id).exec();
 
   if(updatePersonaDto.passwordOld == persona.password){
+    updatePersonaDto.fechaEdicion = new Date();
     const personaUpdated= this.personasModule.updateOne({"_id":id},{$set:updatePersonaDto})
     return personaUpdated;
   }else{

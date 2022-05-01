@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { CreateNotificacioneDto } from './dto/create-notificacione.dto';
 import { UpdateNotificacioneDto } from './dto/update-notificacione.dto';
 import { Notificaciones, NotificacionesDocument } from './schema/notificaciones.schema';
-import {Model} from 'mongoose';
+import { Types,Model } from 'mongoose';
 
 @Injectable()
 export class NotificacionesService {
@@ -18,8 +18,7 @@ export class NotificacionesService {
   }
 
   async findAll() {
-    const list= await this.notificacionesModule.find({});
-    return list;
+    return this.notificacionesModule.find({ leido: false }).exec();
   }
 
   findOne(id: number) {
@@ -32,6 +31,11 @@ export class NotificacionesService {
 
   update(id: number, updateNotificacioneDto: UpdateNotificacioneDto) {
     return `This action updates a #${id} notificacione`;
+  }
+
+  updateNotificacionRead(id: Types.ObjectId, leido: boolean) {
+    const notificacionUpdated= this.notificacionesModule.updateOne({"_id":id},{$set: {"leido":leido,"fechaEdicion":new Date()}})
+    return notificacionUpdated;
   }
 
   remove(id: number) {
