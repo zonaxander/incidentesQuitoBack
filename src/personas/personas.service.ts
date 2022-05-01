@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { CreatePersonaDto } from './dto/create-persona.dto';
 import { UpdatePersonaDto } from './dto/update-persona.dto';
@@ -34,9 +34,15 @@ export class PersonasService {
     return personaUpdated;
   }
 
-  updatePassword(id: Types.ObjectId, updatePersonaDto:UpdatePersonaDto) {
-    const personaUpdated= this.personasModule.findByIdAndUpdate({"_id":id,"password":updatePersonaDto.passwordOld},{$set:updatePersonaDto})
+  async updatePassword(id: Types.ObjectId, updatePersonaDto:UpdatePersonaDto) {
+  const persona = await this.personasModule.findById(id).exec();
+
+  if(updatePersonaDto.passwordOld == persona.password){
+    const personaUpdated= this.personasModule.updateOne({"_id":id},{$set:updatePersonaDto})
     return personaUpdated;
+  }else{
+    throw new HttpException('La contraseña antigua no es correcta', HttpStatus.INTERNAL_SERVER_ERROR);
+  }
   }
 
 
