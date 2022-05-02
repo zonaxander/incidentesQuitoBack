@@ -23,7 +23,13 @@ export class PersonasController {
     }else{
       throw new HttpException('Error en la fotografia', HttpStatus.INTERNAL_SERVER_ERROR);
     }
+  }
 
+  @Post('createPersona')
+  async createPersona(@Body() createPersonaDto: CreatePersonaDto) {
+      return await this.personasService.createPersona(createPersonaDto).catch(err => {
+        this.errorCatch(err)
+      })
   }
 
   @Get()

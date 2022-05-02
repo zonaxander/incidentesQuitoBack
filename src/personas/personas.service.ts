@@ -15,6 +15,11 @@ export class PersonasService {
     return personaCreated;
   }
 
+  async createPersona(createPersonaDto: CreatePersonaDto) {
+    const personaCreated= this.personasModule.create(createPersonaDto)
+    return personaCreated;
+  }
+
   async findAll() {
     const list= await this.personasModule.find({});
     return list;
