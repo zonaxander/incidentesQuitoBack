@@ -11,22 +11,8 @@ var ObjectID = require('mongodb').ObjectID;
 export class PersonasController {
   constructor(private readonly personasService: PersonasService) {}
 
-  @Post()
-  @UseInterceptors(FileInterceptor('file'))
-  async create(@Body() createPersonaDto: CreatePersonaDto, @UploadedFile() file: Express.Multer.File) {
-    if(file){
-      const fileB64 = file.buffer.toString('base64')
-      createPersonaDto.fotoCedula=fileB64
-      return await this.personasService.create(createPersonaDto).catch(err => {
-        this.errorCatch(err)
-      })
-    }else{
-      throw new HttpException('Error en la fotografia', HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-  }
-
   @Post('createPersona')
-  async createPersona(@Body() createPersonaDto: CreatePersonaDto) {
+    async createPersona(@Body() createPersonaDto: CreatePersonaDto) {
       return await this.personasService.createPersona(createPersonaDto).catch(err => {
         this.errorCatch(err)
       })
@@ -42,30 +28,13 @@ export class PersonasController {
     return this.personasService.findOne(id);
   }
 
-  @Patch(':id')
+  @Post(':id')
   update(@Param('id') id: number, @Body() updatePersonaDto: UpdatePersonaDto) {
     updatePersonaDto.fechaEdicion = new Date();
     return this.personasService.update(ObjectID(id), updatePersonaDto);
   }
-
-  @Post('updateFotoPerfil/:id/:tipo')
-  @UseInterceptors(FileInterceptor('file'))
-  updateFotoPerfil(@Param('id') id: number,@Param('tipo') tipo: string,@Body() updatePersonaDto: UpdatePersonaDto, @UploadedFile() file: Express.Multer.File) {
-    if(file){
-      if(tipo=="cedula"){
-        updatePersonaDto.fotoCedula  = file.buffer.toString('base64');
-      }else{
-        updatePersonaDto.fotoPerfil  = file.buffer.toString('base64');
-      }
-      updatePersonaDto.fechaEdicion = new Date();
-      return this.personasService.updateFotoPerfil(ObjectID(id), updatePersonaDto);
-    }else{
-      throw new HttpException('Error en la fotografia', HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-  }
-
   
-  @Patch('updatePassword/:id')
+  @Post('updatePassword/:id')
   updatePassword(@Param('id') id: number, @Body() updatePersonaDto) {
     return this.personasService.updatePassword(ObjectID(id), updatePersonaDto);
   }

@@ -19,6 +19,7 @@ export class CreatePersonaDto {
     strikes: number;
     bloqueo: string;
     fotoPerfil: string;
+    @IsNotEmpty()
     fotoCedula: string;
     estado:string;
 }

@@ -10,7 +10,9 @@ export class CreateIncidenteDto {
     longitud: number;
     @IsNotEmpty()
     persona: string;
+    @IsNotEmpty()
     fotoUno: string;
+    @IsNotEmpty()
     fotoDos: string;
     estado:string;
 

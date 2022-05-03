@@ -10,10 +10,6 @@ export class PersonasService {
   constructor(@InjectModel(Personas.name) private personasModule:Model<PersonasDocument>){
 
   }
-  async create(createPersonaDto: CreatePersonaDto) {
-    const personaCreated= this.personasModule.create(createPersonaDto)
-    return personaCreated;
-  }
 
   async createPersona(createPersonaDto: CreatePersonaDto) {
     const personaCreated= this.personasModule.create(createPersonaDto)
@@ -31,11 +27,6 @@ export class PersonasService {
 
   update(id: Types.ObjectId, updatePersonaDto: UpdatePersonaDto) {
     const personaUpdated= this.personasModule.updateOne({"_id":id},{$set: updatePersonaDto})
-    return personaUpdated;
-  }
-
-  updateFotoPerfil(id: Types.ObjectId, updatePersonaDto: UpdatePersonaDto) {
-    const personaUpdated= this.personasModule.updateOne({"_id":id},{$set:updatePersonaDto})
     return personaUpdated;
   }
 
