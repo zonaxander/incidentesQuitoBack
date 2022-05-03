@@ -24,6 +24,11 @@ export class CatalogoController {
     return this.catalogoService.findOne(id);
   }
 
+  @Get('findIdPadre/:idPadre')
+  findIdPadre(@Param('idPadre') idPadre: string) {
+    return this.catalogoService.findIdPadre(idPadre);
+  }
+
   @Get('findByName/:name')
   findName(@Param('name') name: string) {
     return this.catalogoService.findName(name);

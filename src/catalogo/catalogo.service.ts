@@ -28,6 +28,10 @@ export class CatalogoService {
     return this.catalogoModule.find({ nombre: name, estado:'ACT' }).exec();
   }
 
+  findIdPadre(idPadre: string) {
+    return this.catalogoModule.find({ idPadre: idPadre, estado:'ACT' }).exec();
+  }
+
   update(id: number, updateCatalogoDto: UpdateCatalogoDto) {
     return `This action updates a #${id} catalogo`;
   }
