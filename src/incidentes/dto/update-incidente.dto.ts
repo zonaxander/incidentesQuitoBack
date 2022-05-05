@@ -14,4 +14,5 @@ export class UpdateIncidenteDto extends PartialType(CreateIncidenteDto) {
     fotoUno: string;
     fotoDos: string;
     estado:string;
+    fechaEdicion:Date;
 }

@@ -29,6 +29,12 @@ export class IncidentesService {
     return this.incidentesModule.find({persona:idPersona}).exec();
   }
 
+  update(id: Types.ObjectId, updateIncidenteDto:UpdateIncidenteDto) {
+    updateIncidenteDto.fechaEdicion = new Date();
+    const incidenteUpdated= this.incidentesModule.updateOne({"_id":id},{$set: updateIncidenteDto})
+    return incidenteUpdated;
+  }
+
   updateEstadoById(id: Types.ObjectId, estado) {
     const incidenteUpdated= this.incidentesModule.updateOne({"_id":id},{$set: {"estado": estado,"fechaEdicion": new Date()}})
     return incidenteUpdated;

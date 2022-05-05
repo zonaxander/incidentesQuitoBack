@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, HttpException, HttpStatus, UploadedFiles } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, HttpException, HttpStatus, UploadedFiles, Put } from '@nestjs/common';
 import { IncidentesService } from './incidentes.service';
 import { CreateIncidenteDto } from './dto/create-incidente.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { UpdateIncidenteDto } from './dto/update-incidente.dto';
 var ObjectID = require('mongodb').ObjectID;
 
 @ApiTags('incidentes')
@@ -31,8 +32,13 @@ export class IncidentesController {
     return this.incidentesService.findByIdPersona(idPersona);
   }
 
-  @Get('updateEstadoById/:id/:estado')
-  update(@Param('id') id: number,@Param('estado') estado: string) {
+  @Put(':id')
+  update(@Param('id') id: number,@Body() updateIncidenteDto: UpdateIncidenteDto) {
+    return this.incidentesService.update(ObjectID(id), updateIncidenteDto);
+  }
+
+  @Put('updateEstadoById/:id/:estado')
+  updateEstadoById(@Param('id') id: number,@Param('estado') estado: string) {
     return this.incidentesService.updateEstadoById(ObjectID(id), estado);
   }
 

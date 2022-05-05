@@ -29,8 +29,9 @@ export class NotificacionesService {
     return this.notificacionesModule.find({ persona: idPersona }).populate('tipo').exec();
   }
 
-  update(id: number, updateNotificacioneDto: UpdateNotificacioneDto) {
-    return `This action updates a #${id} notificacione`;
+  update(id: Types.ObjectId, updateNotificacioneDto: UpdateNotificacioneDto) {
+    const catalogoUpdated= this.notificacionesModule.updateOne({"_id":id},{$set: updateNotificacioneDto})
+    return catalogoUpdated;
   }
 
   updateNotificacionRead(id: Types.ObjectId, leido: boolean) {

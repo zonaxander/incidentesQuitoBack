@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Put } from '@nestjs/common';
 import { NotificacionesService } from './notificaciones.service';
 import { CreateNotificacioneDto } from './dto/create-notificacione.dto';
 import { UpdateNotificacioneDto } from './dto/update-notificacione.dto';
@@ -29,12 +29,13 @@ export class NotificacionesController {
     return this.notificacionesService.findByIdPersona(idPersona);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateNotificacioneDto: UpdateNotificacioneDto) {
-    return this.notificacionesService.update(+id, updateNotificacioneDto);
+  @Put(':id')
+  update(@Param('id') id: number, @Body() updateNotificacioneDto: UpdateNotificacioneDto) {
+    updateNotificacioneDto.fechaEdicion = new Date();
+    return this.notificacionesService.update(ObjectID(id), updateNotificacioneDto);
   }
 
-  @Get('updateNotificacionRead/:id/:leido')
+  @Put('updateNotificacionRead/:id/:leido')
   updateNotificacionRead(@Param('id') id: number, @Param('leido') leido: boolean) {
     return this.notificacionesService.updateNotificacionRead(ObjectID(id),leido);
   }

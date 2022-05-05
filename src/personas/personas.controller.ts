@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFile, HttpException, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFile, HttpException, HttpStatus, Put } from '@nestjs/common';
 import { PersonasService } from './personas.service';
 import { CreatePersonaDto } from './dto/create-persona.dto';
 import { UpdatePersonaDto } from './dto/update-persona.dto';
@@ -28,13 +28,13 @@ export class PersonasController {
     return this.personasService.findOne(id);
   }
 
-  @Post(':id')
+  @Put(':id')
   update(@Param('id') id: number, @Body() updatePersonaDto: UpdatePersonaDto) {
     updatePersonaDto.fechaEdicion = new Date();
     return this.personasService.update(ObjectID(id), updatePersonaDto);
   }
   
-  @Post('updatePassword/:id')
+  @Put('updatePassword/:id')
   updatePassword(@Param('id') id: number, @Body() updatePersonaDto) {
     return this.personasService.updatePassword(ObjectID(id), updatePersonaDto);
   }
