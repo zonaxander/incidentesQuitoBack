@@ -4,7 +4,7 @@ import { CreateCatalogoDto } from './dto/create-catalogo.dto';
 import { UpdateCatalogoDto } from './dto/update-catalogo.dto';
 import { Catalogo } from './entities/catalogo.entity';
 import { CatalogoDocument } from './schema/catalogo.schema';
-import {Model} from 'mongoose';
+import { Types,Model } from 'mongoose';
 
 @Injectable()
 export class CatalogoService {
@@ -32,8 +32,10 @@ export class CatalogoService {
     return this.catalogoModule.find({ idPadre: idPadre, estado:'ACT' }).exec();
   }
 
-  update(id: number, updateCatalogoDto: UpdateCatalogoDto) {
-    return `This action updates a #${id} catalogo`;
+  update(id: Types.ObjectId, updateCatalogoDto: UpdateCatalogoDto) {
+    updateCatalogoDto.fechaEdicion = new Date();
+    const catalogoUpdated= this.catalogoModule.updateOne({"_id":id},{$set: updateCatalogoDto})
+    return catalogoUpdated;
   }
 
   remove(id: number) {

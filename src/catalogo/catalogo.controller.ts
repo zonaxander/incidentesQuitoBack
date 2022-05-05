@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Put } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { CatalogoService } from './catalogo.service';
 import { CreateCatalogoDto } from './dto/create-catalogo.dto';
 import { UpdateCatalogoDto } from './dto/update-catalogo.dto';
+var ObjectID = require('mongodb').ObjectID;
 
 @ApiTags('catalogo')
 @Controller('catalogo')
@@ -34,9 +35,9 @@ export class CatalogoController {
     return this.catalogoService.findName(name);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCatalogoDto: UpdateCatalogoDto) {
-    return this.catalogoService.update(+id, updateCatalogoDto);
+  @Put(':id')
+  update(@Param('id') id: number, @Body() updateCatalogoDto: UpdateCatalogoDto) {
+    return this.catalogoService.update(ObjectID(id), updateCatalogoDto);
   }
 
   @Delete(':id')
