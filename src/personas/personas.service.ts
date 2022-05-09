@@ -4,6 +4,8 @@ import { CreatePersonaDto } from './dto/create-persona.dto';
 import { UpdatePersonaDto } from './dto/update-persona.dto';
 import { Personas, PersonasDocument } from './schema/personas.schema';
 import { Types,Model } from 'mongoose';
+import {hash} from 'bcrypt';
+import {compare} from 'bcrypt';
 
 @Injectable()
 export class PersonasService {
@@ -12,6 +14,10 @@ export class PersonasService {
   }
 
   async createPersona(createPersonaDto: CreatePersonaDto) {
+    const {password} = createPersonaDto;
+    const plainToHash = await hash(password,10);
+    createPersonaDto = {...createPersonaDto, password:plainToHash};
+    
     const personaCreated= this.personasModule.create(createPersonaDto)
     return personaCreated;
   }
@@ -31,15 +37,22 @@ export class PersonasService {
   }
 
   async updatePassword(id: Types.ObjectId, updatePersonaDto:UpdatePersonaDto) {
-  const persona = await this.personasModule.findById(id).exec();
 
-  if(updatePersonaDto.passwordOld == persona.password){
-    updatePersonaDto.fechaEdicion = new Date();
-    const personaUpdated= this.personasModule.updateOne({"_id":id},{$set:updatePersonaDto})
-    return personaUpdated;
-  }else{
-    throw new HttpException('La contraseña antigua no es correcta', HttpStatus.INTERNAL_SERVER_ERROR);
-  }
+
+
+  const persona = await this.personasModule.findById(id);
+
+  if(!persona)  throw new HttpException('Persona no encontrada',404);
+
+  const checkPassword =  await compare(updatePersonaDto.passwordOld,persona.password);
+
+  if(!checkPassword)  throw new HttpException('Password Incorrecto',403);
+
+  const plainToHash = await hash(updatePersonaDto.password,10);
+  updatePersonaDto = {...updatePersonaDto, password:plainToHash,fechaEdicion:new Date()};
+  const personaUpdated = this.personasModule.updateOne({"_id":id},{$set:updatePersonaDto})
+  return personaUpdated;
+  
   }
 
 

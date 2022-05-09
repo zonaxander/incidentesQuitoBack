@@ -1,7 +1,7 @@
 import { IsEmail, IsNotEmpty, Max } from "class-validator";
 
 export class CreatePersonaDto {
-    @IsNotEmpty()
+    @IsNotEmpty({ message: 'La identificación es requerida' })
     identificacion: string;
     @IsNotEmpty()
     nombres: string;
@@ -10,8 +10,8 @@ export class CreatePersonaDto {
     @IsNotEmpty()
     nacionalidad: string; 
     direccion: string;
-    @IsNotEmpty()
-    @IsEmail()
+    @IsNotEmpty({ message: 'El correo electrónico es requerido' })
+    @IsEmail({}, { message: 'Correo Electrónico incorrecto' })
     correo: string;
     telefono: number;
     @IsNotEmpty()

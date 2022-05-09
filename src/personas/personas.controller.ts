@@ -3,7 +3,6 @@ import { PersonasService } from './personas.service';
 import { CreatePersonaDto } from './dto/create-persona.dto';
 import { UpdatePersonaDto } from './dto/update-persona.dto';
 import { ApiTags } from '@nestjs/swagger';
-import { FileInterceptor } from '@nestjs/platform-express';
 var ObjectID = require('mongodb').ObjectID;
 
 @ApiTags('personas')

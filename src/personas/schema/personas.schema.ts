@@ -20,7 +20,7 @@ export class Personas {
   nacionalidad: Types.ObjectId;
   @Prop({default:null})
   direccion: string;
-  @Prop({required:true})
+  @Prop({required:true, unique:true})
   correo: string;
   @Prop({default:null})
   telefono: number;

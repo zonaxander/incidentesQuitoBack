@@ -6,14 +6,17 @@ import { PersonasModule } from './personas/personas.module';
 import { NotificacionesModule } from './notificaciones/notificaciones.module';
 import { IncidentesModule } from './incidentes/incidentes.module';
 import { CatalogoModule } from './catalogo/catalogo.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(''), 
+    MongooseModule.forRoot('mongodb://localhost:27017'), 
     PersonasModule, 
     NotificacionesModule, 
     IncidentesModule, 
-    CatalogoModule],
+    CatalogoModule, 
+    AuthModule
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
