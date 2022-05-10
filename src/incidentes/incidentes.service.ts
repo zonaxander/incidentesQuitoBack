@@ -22,7 +22,7 @@ export class IncidentesService {
   }
 
   findOne(id: number) {
-    return this.incidentesModule.findById(id).populate('persona');
+    return this.incidentesModule.findById(id).populate('persona').populate('tipoIncidente');
   }
 
   findByIdPersona(idPersona: number) {

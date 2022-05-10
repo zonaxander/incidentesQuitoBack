@@ -3,6 +3,7 @@ import { Type } from 'class-transformer';
 import { Types,Document } from 'mongoose';
 import * as mongoose from 'mongoose';
 import { Personas } from 'src/personas/schema/personas.schema';
+import { Catalogo } from 'src/catalogo/schema/catalogo.schema';
 
 export type IncidentesDocument = Incidentes & Document;
 
@@ -16,8 +17,9 @@ export class Incidentes {
   latitud: number;
   @Prop({required:true})
   longitud: number;
-  @Prop({default:1})
-  tipo: number;
+  @Prop({ required:true,type: mongoose.Schema.Types.ObjectId, ref: Catalogo.name })
+  @Type(() => Catalogo)
+  tipoIncidente: Types.ObjectId;;
   @Prop({default:null})
   fotoUno: string;
   @Prop({default:null})

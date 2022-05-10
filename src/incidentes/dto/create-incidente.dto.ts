@@ -10,6 +10,8 @@ export class CreateIncidenteDto {
     longitud: number;
     @IsNotEmpty()
     persona: string;
+    @IsNotEmpty({ message: 'El campo tipoIncidente es requerido' })
+    tipoIncidente: string;
     @IsNotEmpty()
     fotoUno: string;
     @IsNotEmpty()
