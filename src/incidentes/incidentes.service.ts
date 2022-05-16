@@ -17,7 +17,7 @@ export class IncidentesService {
   }
 
   async findAll() {
-    const list= await this.incidentesModule.find({});
+    const list= await this.incidentesModule.find().populate('persona').populate('tipoIncidente');
     return list;
   }
 
@@ -40,7 +40,7 @@ export class IncidentesService {
     return incidenteUpdated;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} incidente`;
+  remove(id: Types.ObjectId) {
+    return `Se ha removido el incidente #${id}`;
   }
 }

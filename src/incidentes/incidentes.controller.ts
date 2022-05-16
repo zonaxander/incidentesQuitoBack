@@ -43,8 +43,8 @@ export class IncidentesController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.incidentesService.remove(+id);
+  remove(@Param('id') id: number) {
+    return this.incidentesService.remove(ObjectID(id));
   }
 
   errorCatch(err){
