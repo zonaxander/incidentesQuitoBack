@@ -42,6 +42,11 @@ export class IncidentesController {
     return this.incidentesService.updateEstadoById(ObjectID(id), estado);
   }
 
+  @Put('reportarIncidenteFalso/:idIncidete/:estado/:idPersona')
+  reportarIncidenteFalso(@Param('idIncidete') idIncidete: number,@Param('estado') estado: string,@Param('idPersona') idPersona: number) {
+    return this.incidentesService.reportarIncidenteFalso(ObjectID(idIncidete), estado,ObjectID(idPersona));
+  }
+
   @Delete(':id')
   remove(@Param('id') id: number) {
     return this.incidentesService.remove(ObjectID(id));
