@@ -7,5 +7,7 @@ export class CreateCatalogoDto {
     nombre: string;
     @IsNotEmpty()
     valor: string;
+    @IsNotEmpty()
+    tipo: string;
     estado:string;
 }

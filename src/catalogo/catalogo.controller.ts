@@ -12,7 +12,8 @@ export class CatalogoController {
 
   @Post()
   create(@Body() createCatalogoDto: CreateCatalogoDto) {
-    return this.catalogoService.create(createCatalogoDto);
+    console.log(createCatalogoDto);
+  //  return this.catalogoService.create(createCatalogoDto);
   }
 
   @Get()
@@ -41,7 +42,7 @@ export class CatalogoController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.catalogoService.remove(+id);
+  remove(@Param('id') id: number) {
+    return this.catalogoService.remove(ObjectID(id));
   }
 }

@@ -8,10 +8,12 @@ export type CatalogoDocument = Catalogo & Document;
 export class Catalogo {
   @Prop({required:true})
   idPadre: string;
-  @Prop({required:true, unique:true})
+  @Prop({required:true})
   nombre: string;
   @Prop({required:true})
   valor: string;
+  @Prop({required:true})
+  tipo: string;
   @Prop({default:new Date()})
   fechaCreacion:Date;
   @Prop({default:null})

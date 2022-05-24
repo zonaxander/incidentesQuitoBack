@@ -38,7 +38,8 @@ export class CatalogoService {
     return catalogoUpdated;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} catalogo`;
+  remove(id: Types.ObjectId) {
+    const catalogoUpdated= this.catalogoModule.updateOne({"_id":id},{$set: {"estado": 'INA',"fechaEdicion": new Date()}})
+    return catalogoUpdated;
   }
 }
