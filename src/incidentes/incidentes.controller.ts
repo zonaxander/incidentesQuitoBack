@@ -22,10 +22,16 @@ export class IncidentesController {
     return this.incidentesService.findAll();
   }
 
+  @Get(':estado')
+  findByEstado(@Param('estado') estado: string) {
+    return this.incidentesService.findByEstado(estado);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: number) {
     return this.incidentesService.findOne(id);
   }
+  
 
   @Get('findByIdPersona/:idPersona')
   findByIdPersona(@Param('idPersona') idPersona: number) {

@@ -23,6 +23,11 @@ export class IncidentesService {
     return incidenteCreated;
   }
 
+  async findByEstado(estado:string) {
+    const list= await this.incidentesModule.find({estado:estado}).populate('persona').populate('tipoIncidente');
+    return list;
+  }
+
   async findAll() {
     const list= await this.incidentesModule.find({estado:'GEN'}).populate('persona').populate('tipoIncidente');
     return list;
