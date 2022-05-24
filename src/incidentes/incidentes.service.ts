@@ -69,8 +69,8 @@ export class IncidentesService {
     const persona = await this.personasModule.findById(idPersona);
     if(!persona)  throw new HttpException('Persona no encontrada',404);
 
-    if(persona.strikes >2){
-      const personaUpdated= await this.personasModule.updateOne({"_id":idPersona},{$set: {"bloqueo": true,"fechaEdicion": new Date()}})
+    if(persona.strikes >=2){
+      const personaUpdated= await this.personasModule.updateOne({"_id":idPersona},{$set: {"strikes": persona.strikes+1,"bloqueo": true,"fechaEdicion": new Date()}})
       if(!personaUpdated)  throw new HttpException('Error en el servidor',500);
     }else{
       const personaUpdated= await this.personasModule.updateOne({"_id":idPersona},{$set: {"strikes": persona.strikes+1,"fechaEdicion": new Date()}})
