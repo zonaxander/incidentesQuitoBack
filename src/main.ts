@@ -23,6 +23,7 @@ SwaggerModule.setup('documentation', app, document);
   app.use(urlencoded({ extended: true, limit: '50mb' }));
   app.useGlobalPipes(new ValidationPipe());
   app.enableCors();
-  await app.listen(3000);
+
+  await app.listen(process.env.PORT || 3000);
 }
 bootstrap();
