@@ -12,8 +12,7 @@ export class CatalogoController {
 
   @Post()
   create(@Body() createCatalogoDto: CreateCatalogoDto) {
-    console.log(createCatalogoDto);
-  //  return this.catalogoService.create(createCatalogoDto);
+    return this.catalogoService.create(createCatalogoDto);
   }
 
   @Get()
